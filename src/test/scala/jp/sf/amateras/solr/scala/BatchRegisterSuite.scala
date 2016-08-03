@@ -1,6 +1,6 @@
 package jp.sf.amateras.solr.scala
 import org.scalatest.FunSuite
-import org.apache.solr.client.solrj.SolrServer
+import org.apache.solr.client.solrj.{SolrClient => ApacheSolrClient}
 import org.scalatest.mock.MockitoSugar
 import org.mockito.Mockito._
 import org.mockito.ArgumentCaptor
@@ -9,7 +9,7 @@ import org.apache.solr.common.SolrInputDocument
 class BatchRegisterSuite extends FunSuite with MockitoSugar {
 
   test("commit calls SolrServer#commit."){
-    val server = mock[SolrServer]
+    val server = mock[ApacheSolrClient]
     val register = new BatchRegister(server)
     register.commit()
 
@@ -17,7 +17,7 @@ class BatchRegisterSuite extends FunSuite with MockitoSugar {
   }
 
   test("rollback calls SolrServer#commit."){
-    val server = mock[SolrServer]
+    val server = mock[ApacheSolrClient]
     val register = new BatchRegister(server)
     register.rollback()
 
@@ -25,7 +25,7 @@ class BatchRegisterSuite extends FunSuite with MockitoSugar {
   }
 
   test("add a document via the constructor."){
-    val server = mock[SolrServer]
+    val server = mock[ApacheSolrClient]
     val register = new BatchRegister(server, Map("id" -> "123"))
 
     val captor = ArgumentCaptor.forClass(classOf[SolrInputDocument])
@@ -36,7 +36,7 @@ class BatchRegisterSuite extends FunSuite with MockitoSugar {
   }
 
   test("add documents via the constructor."){
-    val server = mock[SolrServer]
+    val server = mock[ApacheSolrClient]
     val register = new BatchRegister(server,
         Map("id" -> "123"), Map("id" -> "456"))
 

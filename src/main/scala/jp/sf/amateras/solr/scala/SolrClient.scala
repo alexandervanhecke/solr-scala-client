@@ -1,16 +1,14 @@
 package jp.sf.amateras.solr.scala
 
-import org.apache.solr.client.solrj.SolrQuery.ORDER
-import org.apache.solr.client.solrj.impl.HttpSolrServer
-import org.apache.solr.client.solrj.SolrServer
-
 import jp.sf.amateras.solr.scala.query._
+import org.apache.solr.client.solrj.{SolrClient => ApacheSolrClient}
+import org.apache.solr.client.solrj.impl.{HttpSolrClient => ApacheHttpSolrClient}
 
 /**
  * This is the simple Apache Solr client for Scala.
  */
 class SolrClient(url: String)
-  (implicit factory: (String) => SolrServer = { (url: String) => new HttpSolrServer(url) }, 
+  (implicit factory: (String) => ApacheSolrClient = { (url: String) => new ApacheHttpSolrClient(url) },
             parser: ExpressionParser = new DefaultExpressionParser()) {
 
   private val server = factory(url)
@@ -19,7 +17,7 @@ class SolrClient(url: String)
   /**
    * Shutdown this solr client to release allocated resources.
    */
-  def shutdown(): Unit = server.shutdown
+  def shutdown(): Unit = server.close()
 
   /**
    * Execute given operation in the transaction.

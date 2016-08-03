@@ -20,7 +20,7 @@ class AsyncQueryBuilder(httpClient: AsyncHttpClient, url: String, protected val 
       wParams.set(CommonParams.WT, respParser.getWriterType)
       wParams.set(CommonParams.VERSION, respParser.getVersion)
 
-      val qStr = ClientUtils.toQueryString(wParams, false)
+      val qStr = wParams.toQueryString
       (if (qStr.charAt(0) == '?') qStr drop 1 else qStr) getBytes "UTF-8"
     }
 

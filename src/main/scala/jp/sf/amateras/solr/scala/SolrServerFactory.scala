@@ -3,10 +3,11 @@ package jp.sf.amateras.solr.scala
 import org.apache.solr.common._
 import org.apache.solr.common.util._
 import org.apache.solr.client.solrj._
-import org.apache.solr.client.solrj.impl.HttpSolrServer
 import org.apache.http.impl.client.DefaultHttpClient
 import org.apache.http.auth.AuthScope
 import org.apache.http.auth.UsernamePasswordCredentials
+import org.apache.solr.client.solrj.impl.{HttpSolrClient => ApacheHttpSolrClient}
+import org.apache.solr.client.solrj.{SolrClient => ApacheSolrClient}
 
 object SolrServerFactory {
 
@@ -19,7 +20,7 @@ object SolrServerFactory {
    * }}}
    */
   def basicAuth(username: String, password: String) = (url: String) => {
-      val server = new HttpSolrServer(url)
+      val server = new ApacheHttpSolrClient(url)
       val jurl = new java.net.URL(server.getBaseURL)
 
       val client = server.getHttpClient.asInstanceOf[DefaultHttpClient]
@@ -46,18 +47,19 @@ object SolrServerFactory {
    * val client = new SolrClient("http://localhost:8983/solr")
    * }}}
    */
-  def dummy(listener: (SolrRequest) => Unit) = (url: String) => new SolrServer {
-	def request(request: SolrRequest): NamedList[Object] = {
-	  listener(request)
-	  
-	  val response =  new SimpleOrderedMap[Object]()
-	  response.add("response", new SolrDocumentList())
-	  
-	  response
-	}
-	
-	def shutdown() = {
-	}
+  def dummy(listener: (SolrRequest[_ <: SolrResponse]) => Unit) = (url: String) => new ApacheSolrClient {
+    def close() = {
+    }
+
+    override def request(request: SolrRequest[_ <: SolrResponse], collection: String): NamedList[AnyRef] = {
+      listener(request)
+
+      val response =  new SimpleOrderedMap[Object]()
+      response.add("response", new SolrDocumentList())
+
+      response
+
+    }
   }
   
 }

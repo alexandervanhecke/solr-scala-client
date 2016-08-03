@@ -2,9 +2,9 @@ package jp.sf.amateras.solr.scala
 
 import jp.sf.amateras.solr.scala.query.ExpressionParser
 import jp.sf.amateras.solr.scala.query.QueryTemplate
-import org.apache.solr.client.solrj.SolrServer
+import org.apache.solr.client.solrj.{SolrClient => ApacheSolrClient}
 
-class QueryBuilder(server: SolrServer, query: String)(implicit parser: ExpressionParser)
+class QueryBuilder(server: ApacheSolrClient, query: String)(implicit parser: ExpressionParser)
   extends QueryBuilderBase[QueryBuilder] {
 
   protected def createCopy = new QueryBuilder(server, query)(parser)

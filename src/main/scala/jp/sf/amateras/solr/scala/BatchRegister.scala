@@ -1,9 +1,9 @@
 package jp.sf.amateras.solr.scala
 
-import org.apache.solr.client.solrj.SolrServer
 import org.apache.solr.common.SolrInputDocument
+import org.apache.solr.client.solrj.{SolrClient => ApacheSolrClient}
 
-class BatchRegister(server: SolrServer, docs: Map[String, Any]*){
+class BatchRegister(server: ApacheSolrClient, docs: Map[String, Any]*){
 
   add(docs: _*)
 
