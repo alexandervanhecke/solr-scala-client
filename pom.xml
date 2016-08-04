@@ -6,9 +6,9 @@
     <groupId>be.avhconsult</groupId>
     <artifactId>solr-scala-client</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.13-SNAPSHOT</version>
     <name>solr-scala-client</name>
-    <description>solrj wrapper for scala, taken from https://github.com/takezoe/solr-scala-client</description>
+    <description>solrj wrapper for scala, forked from https://github.com/takezoe/solr-scala-client</description>
 
 
     <dependencies>
