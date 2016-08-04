@@ -8,8 +8,6 @@ scalaVersion := "2.11.7"
 
 scalacOptions += "-feature"
 
-resolvers ++= Seq("snapshots-repo" at "http://scala-tools.org/repo-snapshots")
-
 libraryDependencies ++= Seq(
   "org.apache.solr" % "solr-solrj" % "6.1.0" % "compile",
   "com.ning" % "async-http-client" % "1.7.16" % "compile",
@@ -19,10 +17,12 @@ libraryDependencies ++= Seq(
   "commons-logging" % "commons-logging" % "1.1.3" % "runtime"
 )
 
-publishTo <<= version { v: String =>
+publishTo := {
   val nexus = "https://oss.sonatype.org/"
-  if (v.trim.endsWith("SNAPSHOT")) Some("snapshots" at nexus + "content/repositories/snapshots")
-  else                             Some("releases" at nexus + "service/local/staging/deploy/maven2")
+  if (isSnapshot.value)
+    Some("snapshots" at nexus + "content/repositories/snapshots")
+  else
+    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
 }
 
 publishMavenStyle := true
@@ -31,14 +31,11 @@ publishArtifact in Test := false
 
 pomIncludeRepository := { x => false }
 
+licenses := Seq("The Apache License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
+
+homepage := Some(url("https://github.com/alexandervanhecke/solr-scala-client"))
+
 pomExtra := (
-    <url>https://github.com/alexandervanhecke/solr-scala-client</url>
-    <licenses>
-      <license>
-        <name>The Apache License, Version 2.0</name>
-        <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      </license>
-    </licenses>
     <developers>
       <developer>
         <name>Alexander Van Hecke</name>
