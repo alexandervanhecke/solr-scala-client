@@ -32,8 +32,23 @@ publishArtifact in Test := false
 pomIncludeRepository := { x => false }
 
 pomExtra := (
+    <url>https://github.com/alexandervanhecke/solr-scala-client</url>
+    <licenses>
+      <license>
+        <name>The Apache License, Version 2.0</name>
+        <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      </license>
+    </licenses>
+    <developers>
+      <developer>
+        <name>Alexander Van Hecke</name>
+        <organization>AVH Consult</organization>
+        <organizationUrl>https://github.com/alexandervanhecke</organizationUrl>
+      </developer>
+    </developers>
     <scm>
-      <url>git@github.com:alexandervanhecke/solr-scala-client.git</url>
-      <connection>scm:git:git@github.com:alexandervanhecke/solr-scala-client.git</connection>
+      <connection>scm:git:git://github.com/alexandervanhecke/solr-scala-client.git</connection>
+      <developerConnection>scm:git:ssh://github.com:alexandervanhecke/solr-scala-client.git</developerConnection>
+      <url>http://github.com/alexandervanhecke/solr-scala-client/tree/master</url>
     </scm>
   )
