@@ -1,19 +1,15 @@
 name := "solr-scala-client"
 
-organization := "jp.sf.amateras.solr.scala"
+organization := "be.avhconsult"
 
-version := "0.0.13-SNAPSHOT"
+version := "0.0.13"
 
 scalaVersion := "2.11.7"
 
 scalacOptions += "-feature"
 
-resolvers += "amateras-repo" at "http://amateras.sourceforge.jp/mvn/"
-
-resolvers += "Local Maven Repository" at "file:///" + Path.userHome.absolutePath + "/.m2/repository"
-
 libraryDependencies ++= Seq(
-  "org.apache.solr" % "solr-solrj" % "4.5.1" % "compile",
+  "org.apache.solr" % "solr-solrj" % "6.1.0" % "compile",
   "com.ning" % "async-http-client" % "1.7.16" % "compile",
   "org.scala-lang.modules" %% "scala-parser-combinators" % "1.0.1",
   "org.scalatest" %% "scalatest" % "2.1.6" % "test",
@@ -21,14 +17,35 @@ libraryDependencies ++= Seq(
   "commons-logging" % "commons-logging" % "1.1.3" % "runtime"
 )
 
-publishTo <<= (version) { version: String =>
-  val repoInfo =
-    if (version.trim.endsWith("SNAPSHOT"))
-      ("amateras snapshots" -> "/home/groups/a/am/amateras/htdocs/mvn-snapshot/")
-    else
-      ("amateras releases" -> "/home/groups/a/am/amateras/htdocs/mvn/")
-  Some(Resolver.ssh(
-    repoInfo._1,
-    "shell.sourceforge.jp",
-    repoInfo._2) as(System.getProperty("user.name"), (Path.userHome / ".ssh" / "id_rsa").asFile) withPermissions("0664"))
+publishTo := {
+  val nexus = "https://oss.sonatype.org/"
+  if (isSnapshot.value)
+    Some("snapshots" at nexus + "content/repositories/snapshots")
+  else
+    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
 }
+
+publishMavenStyle := true
+
+publishArtifact in Test := false
+
+pomIncludeRepository := { x => false }
+
+licenses := Seq("The Apache License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
+
+homepage := Some(url("https://github.com/alexandervanhecke/solr-scala-client"))
+
+pomExtra := (
+    <developers>
+      <developer>
+        <name>Alexander Van Hecke</name>
+        <organization>AVH Consult</organization>
+        <organizationUrl>https://github.com/alexandervanhecke</organizationUrl>
+      </developer>
+    </developers>
+    <scm>
+      <connection>scm:git:git://github.com/alexandervanhecke/solr-scala-client.git</connection>
+      <developerConnection>scm:git:ssh://github.com:alexandervanhecke/solr-scala-client.git</developerConnection>
+      <url>http://github.com/alexandervanhecke/solr-scala-client/tree/master</url>
+    </scm>
+  )
