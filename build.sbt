@@ -2,7 +2,7 @@ name := "solr-scala-client"
 
 organization := "be.avhconsult"
 
-version := "0.0.13-SNAPSHOT"
+version := "0.0.13"
 
 scalaVersion := "2.11.7"
 
