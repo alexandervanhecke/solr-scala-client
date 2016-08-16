@@ -12,12 +12,10 @@ object QueryUtils {
    * @return the escaped string
    */
   def escape(value: String): String =
-    value.toString.map { c =>
-      c match {
-        case '\\' => Seq('\\', '\\')
-        case _ if specialCharacters.contains(c) => Seq('\\', c)
-        case _ => Seq(c)
-      }
-    }.flatten.mkString
+    value.toString.flatMap {
+      case '\\' => Seq('\\', '\\')
+      case c if specialCharacters.contains(c) => Seq('\\', c)
+      case c => Seq(c)
+    }.mkString
     
 }

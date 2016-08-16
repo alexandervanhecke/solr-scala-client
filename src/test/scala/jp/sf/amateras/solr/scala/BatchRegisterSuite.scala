@@ -26,27 +26,27 @@ class BatchRegisterSuite extends FunSuite with MockitoSugar {
 
   test("add a document via the constructor."){
     val server = mock[ApacheSolrClient]
-    val register = new BatchRegister(server, Map("id" -> "123"))
+    new BatchRegister(server, Map("id" -> "123"))
 
     val captor = ArgumentCaptor.forClass(classOf[SolrInputDocument])
     verify(server, times(1)).add(captor.capture())
 
-    val doc = captor.getValue()
-    assert(doc.getField("id").getValue() == "123")
+    val doc = captor.getValue
+    assert(doc.getField("id").getValue == "123")
   }
 
   test("add documents via the constructor."){
     val server = mock[ApacheSolrClient]
-    val register = new BatchRegister(server,
+    new BatchRegister(server,
         Map("id" -> "123"), Map("id" -> "456"))
 
     val captor = ArgumentCaptor.forClass(classOf[SolrInputDocument])
     verify(server, times(2)).add(captor.capture())
 
-    val doc1 = captor.getAllValues().get(0)
-    assert(doc1.getField("id").getValue() == "123")
+    val doc1 = captor.getAllValues.get(0)
+    assert(doc1.getField("id").getValue == "123")
 
-    val doc2 = captor.getAllValues().get(1)
-    assert(doc2.getField("id").getValue() == "456")
+    val doc2 = captor.getAllValues.get(1)
+    assert(doc2.getField("id").getValue == "456")
   }
 }

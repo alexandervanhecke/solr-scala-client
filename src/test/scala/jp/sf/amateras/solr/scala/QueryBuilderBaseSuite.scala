@@ -6,7 +6,7 @@ import jp.sf.amateras.solr.scala.query.DefaultExpressionParser
 class QueryBuilderBaseSuite extends FunSuite {
   
   test("copy"){
-    val server = SolrServerFactory.dummy(request => ())
+    SolrServerFactory.dummy(request => ())
     implicit val parser = new DefaultExpressionParser()
     val queryBuilder = new TestQueryBuilder()
     val copied = queryBuilder.id("contentId")
@@ -15,11 +15,11 @@ class QueryBuilderBaseSuite extends FunSuite {
     
     assert(copied.getId == "contentId")
     assert(copied.getHilightingField == "content")
-    assert(copied.getQuery.getHighlight == true)
-    assert(copied.getQuery.getHighlightFields().length == 1)
+    assert(copied.getQuery.getHighlight)
+    assert(copied.getQuery.getHighlightFields.length == 1)
     assert(copied.getQuery.getHighlightFields()(0) == "content")
-    assert(copied.getQuery.getHighlightSimplePre() == "<b>")
-    assert(copied.getQuery.getHighlightSimplePost() == "</b>")
+    assert(copied.getQuery.getHighlightSimplePre == "<b>")
+    assert(copied.getQuery.getHighlightSimplePost == "</b>")
     assert(copied.getQuery.getHighlightSnippets == 2)
     assert(copied.getQuery.getFacetQuery.contains("something:cool"))
   }

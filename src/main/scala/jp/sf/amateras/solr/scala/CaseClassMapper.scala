@@ -12,10 +12,10 @@ private[scala] object CaseClassMapper {
    *
    */
   def map2class[T](map: Map[String, Any])(implicit m: scala.reflect.Manifest[T]): T = {
-    val clazz = m.erasure.asInstanceOf[Class[T]]
+    val clazz = m.runtimeClass.asInstanceOf[Class[T]]
 
     val constructor = clazz.getConstructors()(0)
-    val paramTypes = constructor.getParameterTypes()
+    val paramTypes = constructor.getParameterTypes
     val params = paramTypes.map { getDefaultValue(_).asInstanceOf[java.lang.Object] }
 
     val instance = constructor.newInstance(params: _*).asInstanceOf[T]
@@ -40,13 +40,13 @@ private[scala] object CaseClassMapper {
    *
    */
   def class2map(instance: Any): Map[String, Any] = {
-    val fields = instance.getClass().getDeclaredFields()
+    val fields = instance.getClass.getDeclaredFields
     fields.map { field =>
       field.setAccessible(true)
       field.get(instance) match {
-        case Some(x) => (NameTransformer.decode(field.getName()), x)
-        case None    => (NameTransformer.decode(field.getName()), null)
-        case x       => (NameTransformer.decode(field.getName()), x)
+        case Some(x) => (NameTransformer.decode(field.getName), x)
+        case None    => (NameTransformer.decode(field.getName), null)
+        case x       => (NameTransformer.decode(field.getName), x)
       }
     }.toMap
   }

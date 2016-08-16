@@ -8,7 +8,6 @@ import org.apache.http.HttpStatus
 import org.apache.solr.client.solrj.{ResponseParser, StreamingResponseCallback}
 import org.apache.solr.client.solrj.impl.{StreamingBinaryResponseParser, XMLResponseParser}
 import org.apache.solr.client.solrj.response.QueryResponse
-import org.apache.solr.client.solrj.util.ClientUtils
 import org.apache.solr.common.params.{CommonParams, ModifiableSolrParams, SolrParams}
 import scala.concurrent._
 import scala.util.control.Exception.ultimately

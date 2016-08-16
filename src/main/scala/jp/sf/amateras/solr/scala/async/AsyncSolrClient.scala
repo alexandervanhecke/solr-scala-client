@@ -2,14 +2,10 @@ package jp.sf.amateras.solr.scala.async
 
 import com.ning.http.client.AsyncHttpClient
 import java.net.URLEncoder
-import jp.sf.amateras.solr.scala.{QueryBuilderBase, CaseClassMapper}
 import jp.sf.amateras.solr.scala.async.AsyncUtils.CallbackHandler
 import jp.sf.amateras.solr.scala.query._
 import org.apache.solr.client.solrj.request.{AbstractUpdateRequest, UpdateRequest}
-import org.apache.solr.common.SolrInputDocument
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent._
-import scala.util.{Success, Failure}
 
 /**
  * Provides the asynchronous and non-blocking API for Solr.

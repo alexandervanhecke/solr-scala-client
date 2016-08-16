@@ -45,7 +45,7 @@ trait IAsyncSolrClient {
             case sid: SolrInputDocument => sid
             case _ =>
                 val ret = new SolrInputDocument
-                CaseClassMapper.toMap(doc) map {
+                CaseClassMapper.toMap(doc) foreach {
                     case (key, value) => ret.addField(key, value)
                 }
                 ret

@@ -35,7 +35,7 @@ object AsyncSolrClientSample extends App {
       println("count: " + result.numFound)
       result.documents.foreach { doc =>
         println("id: " + doc("id"))
-        println("  manu: " + doc.get("manu").getOrElse("<NULL>"))
+        println("  manu: " + doc.getOrElse("manu", "<NULL>"))
         println("  name: " + doc("name"))
       }
     }

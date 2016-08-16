@@ -20,7 +20,7 @@ object SolrServerFactory {
    * }}}
    */
   def basicAuth(username: String, password: String) = (url: String) => {
-      val server = new ApacheHttpSolrClient(url)
+      val server = new ApacheHttpSolrClient.Builder(url).build()
       val jurl = new java.net.URL(server.getBaseURL)
 
       val client = server.getHttpClient.asInstanceOf[DefaultHttpClient]

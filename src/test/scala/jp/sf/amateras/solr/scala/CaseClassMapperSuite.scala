@@ -8,7 +8,7 @@ class CaseClassMapperSuite extends FunSuite {
 
     assert(employee.id == 1234)
     assert(employee.name == "takezoe")
-    assert(employee.email == None)
+    assert(employee.email.isEmpty)
   }
 
   test("map2class (Option is Some)"){
@@ -16,7 +16,7 @@ class CaseClassMapperSuite extends FunSuite {
 
     assert(employee.id == 1234)
     assert(employee.name == "takezoe")
-    assert(employee.email == Some("takezoe@gmail.com"))
+    assert(employee.email.contains("takezoe@gmail.com"))
   }
 
   test("map2class (property name contains '-')"){
@@ -24,7 +24,7 @@ class CaseClassMapperSuite extends FunSuite {
 
     assert(employee.`emp-id` == 1234)
     assert(employee.`emp-name` == "takezoe")
-    assert(employee.email == Some("takezoe@gmail.com"))
+    assert(employee.email.contains("takezoe@gmail.com"))
   }
   
   test("class2map (Option is None)"){
