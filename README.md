@@ -9,17 +9,7 @@ Forked from : https://github.com/takezoe/solr-scala-client
 Add the following dependency into your `build.sbt` to use solr-scala-client.
 
 ```scala
-resolvers += "amateras-repo" at "http://amateras.sourceforge.jp/mvn/"
-
-libraryDependencies += "jp.sf.amateras.solr.scala" %% "solr-scala-client" % "0.0.12"
-```
-
-If you want to test SNAPSHOT version, add the following dependency instead of above:
-
-```scala
-resolvers += "amateras-repo" at "http://amateras.sourceforge.jp/mvn-snapshot/"
-
-libraryDependencies += "jp.sf.amateras.solr.scala" %% "solr-scala-client" % "0.0.13-SNAPSHOT"
+libraryDependencies += "be.avhconsult" %% "solr-scala-client" % "0.0.13"
 ```
 
 This is a simplest example to show usage of solr-scala-client.
